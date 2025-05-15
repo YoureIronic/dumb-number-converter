@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Two-Way Speed Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .converter {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .result {
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+        .formula {
+            font-style: italic;
+            color: #7f8c8d;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <h1>Speed Converter</h1>
+        
+        <div class="formula">
+            Display Speed = Actual Speed × 10
+        </div>
+        
+        <div class="input-group">
+            <label for="actualInput">Actual Speed:</label>
+            <input type="number" id="actualInput" step="0.1" placeholder="0.1, 0.2, etc.">
+            <div class="result" id="displayResult">Display Speed: 0</div>
+        </div>
+        
+        <div class="input-group">
+            <label for="displayInput">Display Speed:</label>
+            <input type="number" id="displayInput" step="1" placeholder="1, 2, etc.">
+            <div class="result" id="actualResult">Actual Speed: 0</div>
+        </div>
+    </div>
+
+    <script>
+        const actualInput = document.getElementById('actualInput');
+        const displayInput = document.getElementById('displayInput');
+        const displayResult = document.getElementById('displayResult');
+        const actualResult = document.getElementById('actualResult');
+
+        // Convert from Actual to Display
+        actualInput.addEventListener('input', function() {
+            const actualSpeed = parseFloat(this.value) || 0;
+            const displaySpeed = actualSpeed * 10;
+            displayResult.textContent = `Display Speed: ${displaySpeed}`;
+            
+            // Sync the other input
+            displayInput.value = displaySpeed;
+        });
+
+        // Convert from Display to Actual
+        displayInput.addEventListener('input', function() {
+            const displaySpeed = parseFloat(this.value) || 0;
+            const actualSpeed = displaySpeed / 10;
+            actualResult.textContent = `Actual Speed: ${actualSpeed}`;
+            
+            // Sync the other input
+            actualInput.value = actualSpeed;
+        });
+    </script>
+</body>
+</html>
